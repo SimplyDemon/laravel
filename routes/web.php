@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('mainPage');
 
+Route::get('/testing', 'TestController@testing');
+
 Route::view('/404','404');
 Route::group(['prefix'=>'post'], function(){
 	Route::get('all','PostController@postGetAll');

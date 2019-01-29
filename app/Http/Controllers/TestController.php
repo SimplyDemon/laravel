@@ -50,4 +50,8 @@ class TestController extends Controller {
 		return 'Page with ID:' . $id;
 	}
 
+	public function testing(){
+		return view('layouts.main');
+	}
+
 }
