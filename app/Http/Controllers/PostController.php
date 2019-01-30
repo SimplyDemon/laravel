@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller  {
 
-	protected $folderPath = 'Post.';
+	protected $folderPath = 'post.';
 
 	function postGetAll () {
 		return view($this->folderPath .'all');

@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 
 class UserController extends Controller  {
 
-	protected $folderPath = 'User.';
+	protected $folderPath = 'user.';
 	function userRegisterForm() {
 		return view($this->folderPath .'register');
 	}
