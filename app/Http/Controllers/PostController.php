@@ -11,20 +11,20 @@ class PostController extends Controller  {
 
 	protected $folderPath = 'post.';
 
-	function postGetAll () {
+	function getAll () {
 		return view($this->folderPath .'all');
 	}
 
-	function postGetSingle($id) {
+	function getSingle($id) {
 		return view($this->folderPath .'single' ,['postID' => $id]);
 	}
 
-	function postAddNew () {
+	function addNew () {
 		//получаем поля через $request->input, делаем проверки, пытаемся записать в базу, если ошибка - выводим ее
 
 		return view($this->folderPath .'new',['errorMessage'=>'Не все поля были заполнены корректно']);
 	}
-	function postShowAddForm () {
+	function showAddForm () {
 		return view($this->folderPath .'new');
 	}
 

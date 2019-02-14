@@ -20,24 +20,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get( '/testing', 'TestController@testing' );
 
-
-Route::get( '/', 'Blog\IndexPageController@getView' )->name('index');
-Route::get( '/about', 'Blog\AboutPageController@getView' )->name('about');
-Route::get( '/contacts', 'Blog\ContactsPageController@getView' )->name('contacts');
-Route::get( '/elements', 'Blog\ElementsPageController@getView' )->name('elements');
-Route::get( '/single-post{id?}', 'Blog\SinglePostController@getView' )->name('single-post');
-
-
-Route::view( '/404', '404' );
-Route::group( [ 'prefix' => 'post' ], function () {
-	Route::get( 'all', 'PostController@postGetAll' );
-	Route::get( '{id}', 'PostController@postGetSingle' );
-	Route::get( 'new', 'PostController@postShowAddForm' );
-	Route::post( 'new', 'PostController@postAddNew' );
+Route::group( [ 'prefix' => '/', 'namespace' => 'Blog' ], function () {
+	Route::get( '/', 'IndexPageController@getView' )->name( 'index' );
+	Route::get( '/about', 'AboutPageController@getView' )->name( 'about' );
+	Route::get( '/contacts', 'ContactsPageController@getView' )->name( 'contacts' );
+	Route::get( '/elements', 'ElementsPageController@getView' )->name( 'elements' );
+	Route::get( '/single-post{id?}', 'SinglePostController@getView' )->name( 'single-post' );
 } );
+
+
 Route::group( [ 'prefix' => 'user' ], function () {
-	Route::get( 'register', 'UserController@userRegisterForm' );
-	Route::post( 'register', 'UserController@userRegistration' );
-	Route::get( 'login', 'UserController@userLoginForm' );
-	Route::post( 'login', 'UserController@userAuthorization' );
+	Route::get( 'register', 'UserController@registerForm' )->name( 'getRegister' );
+	Route::post( 'register', 'UserController@registration' )->name( 'postRegister' );
+	Route::get( 'login', 'UserController@loginForm' )->name( 'getLogin' );
+	Route::post( 'login', 'UserController@authorization' )->name( 'postLogin' );
 } );
+
+Route::view( '/404', '404' )->name( '404' );

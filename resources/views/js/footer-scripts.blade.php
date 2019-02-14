@@ -1,1 +1,1 @@
-<script src="js/main.js"></script>
+<script src="{{URL::to('/')}}/js/main.js"></script>
