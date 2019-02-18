@@ -4,26 +4,35 @@
 namespace App\Http\Controllers;
 
 
+use App\Custom\Classes\MyCounter;
+
 class UserController extends Controller  {
 
 	protected $folderPath = 'user.';
-	function registerForm() {
-		return view($this->folderPath .'register');
+
+	function registerForm( MyCounter $counter ) {
+		//$counter = new MyCounter();
+		$counter->increment();
+		$counter->increment();
+		$counter->increment();
+		$counter->decrement();
+
+		return $counter->getValue();
 	}
 
 	function registration() {
 		//делаем проверки по полям, записываем пользователя в базу если все ок, если нет - возвращаем ошибку
 
-		return view($this->folderPath .'register',['errorMessage'=>'Регистрация пользователя не удалась']);
+		return view( $this->folderPath . 'register',[ 'errorMessage' =>'Регистрация пользователя не удалась']);
 	}
 
 	function loginForm() {
-		return view($this->folderPath .'login');
+		return view( $this->folderPath . 'login');
 	}
 
 	function authorization() {
 		//проверяем логин-пароль, если не совпадает возвращаем ошибку
-		return view($this->folderPath .'login',['errorMessage'=>'Логин или пароль неверны']);
+		return view( $this->folderPath . 'login',[ 'errorMessage' =>'Логин или пароль неверны']);
 	}
 
 
