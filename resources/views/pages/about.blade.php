@@ -2,6 +2,7 @@
 
 @section('content')
 
+
     <div class="row">
         <div class="col-xs-12  col-md-8">
 
@@ -13,12 +14,16 @@
                     <div class="col-xs-10  col-xs-offset-1">
                         <div class="widget-author__content">
                             <h4>About Us</h4>
+                            <pre>
+                                {{$content ?? 'No any custom content'}}
+                            </pre>
                             <p>Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="about-us">
+
                 <div class="row">
                     <div class="col-xs-12  col-sm-6">
 
