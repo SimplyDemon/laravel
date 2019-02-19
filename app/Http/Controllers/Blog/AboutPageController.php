@@ -13,7 +13,7 @@ class AboutPageController extends Controller {
 		$singletonHelper = resolve( 'singletonHelper' );
 		$content         .= "\n\r Singleton number is " . $singletonHelper->getRandNumber();
 		$singletonHelper = resolve( 'singletonHelper' );
-		$content         .= "\n\r Singleton number is" . $singletonHelper->getRandNumber();
+		$content         .= "\n\r <b>Singleton</b> number is" . $singletonHelper->getRandNumber();
 		$singletonHelper = resolve( 'singletonHelper' );
 		$content         .= "\n\r Singleton number is " . $singletonHelper->getRandNumber();
 

@@ -5,23 +5,40 @@ namespace App\Http\Controllers;
 
 
 use App\Custom\Classes\MyCounter;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller  {
 
 	protected $folderPath = 'user.';
 
 	function registerForm( MyCounter $counter ) {
-		//$counter = new MyCounter();
-		$counter->increment();
-		$counter->increment();
-		$counter->increment();
-		$counter->decrement();
-
-		return $counter->getValue();
+		return view( $this->folderPath . 'register' );
 	}
 
-	function registration() {
-		//делаем проверки по полям, записываем пользователя в базу если все ок, если нет - возвращаем ошибку
+	function registration( RegisterRequest $request ) {
+
+
+		$input = $request->all();
+		debug( $input );
+
+		$result = DB::table( 'users' )->insert(
+			[
+				'login'    => $request->input( 'email' ),
+				'name'     => $request->input( 'name' ),
+				'password' => $request->input( 'password' ),
+			]
+
+		);
+		debug( $result );
+
+		if ( $result ) {
+
+			return 'Sucess registred';
+		} else {
+			return 'Все плохо!';
+		}
 
 		return view( $this->folderPath . 'register',[ 'errorMessage' =>'Регистрация пользователя не удалась']);
 	}
