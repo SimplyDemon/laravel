@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 
 
 use App\Custom\Classes\MyCounter;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller  {
+class UserController extends Controller {
 
 	protected $folderPath = 'user.';
 
@@ -25,31 +27,38 @@ class UserController extends Controller  {
 
 		$result = DB::table( 'users' )->insert(
 			[
-				'login'    => $request->input( 'email' ),
+				'email'    => $request->input( 'email' ),
 				'name'     => $request->input( 'name' ),
-				'password' => $request->input( 'password' ),
+				'password' => bcrypt( $request->input( 'password' ) ),
+				'phone'    => $request->input( 'phone' ),
 			]
 
 		);
 		debug( $result );
 
 		if ( $result ) {
-
-			return 'Sucess registred';
+			return 'Вы удачно зарегистрировались';
 		} else {
-			return 'Все плохо!';
+			return 'Регистрация не успешна';
 		}
 
-		return view( $this->folderPath . 'register',[ 'errorMessage' =>'Регистрация пользователя не удалась']);
+		return view( $this->folderPath . 'register', [ 'errorMessage' => 'Регистрация пользователя не удалась' ] );
 	}
 
 	function loginForm() {
-		return view( $this->folderPath . 'login');
+		return view( $this->folderPath . 'login' );
 	}
 
-	function authorization() {
+	function authorization( LoginRequest $request ) {
+
+		$user = DB::table( 'users' )->where( 'name', '=', $request->input( 'name' ) )->first();
+
+		if ( ! empty( $user ) && Hash::check( $request->input( 'password' ), $user->password ) ) {
+			return 'Привет ' . $request->input( 'name' ) . ' !';
+		}
+
 		//проверяем логин-пароль, если не совпадает возвращаем ошибку
-		return view( $this->folderPath . 'login',[ 'errorMessage' =>'Логин или пароль неверны']);
+		return view( $this->folderPath . 'login', [ 'errorMessage' => 'Логин или пароль неверный' ] );
 	}
 
 

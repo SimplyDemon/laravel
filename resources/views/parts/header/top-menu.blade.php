@@ -1,20 +1,72 @@
-<?php $routeName = Route::currentRouteName()?>
+<?php
+$menuArgs = [
+	[
+		'title'   => 'Главная',
+		'url'     => route( 'index' ),
+		'submenu' => [
+			[
+				'title' => 'Регистрация',
+				'url'   => route( 'getRegister' ),
+			],
+			[
+				'title' => 'Авторизация',
+				'url'   => route( 'getLogin' ),
+			],
+		]
+	],
+	[
+		'title' => 'Верстка',
+		'url'   => route( 'elements' ),
+	],
+	[
+		'title' => 'Обо мне',
+		'url'   => route( 'about' )
+	],
+	[
+		'title' => 'Обратная связь',
+		'url'   => route( 'contacts' )
+	],
+
+];
+function generateMenu($menuArgs) {
+$currentRouteName = Route::currentRouteName();
+
+if ( empty( $menuArgs ) || ! is_array( $menuArgs ) ) {
+	return false;
+}
+ob_start(); ?>
 <nav class="navbar navbar-default" role="navigation">
     <div class="collapse  navbar-collapse" id="readable-navbar-collapse">
         <ul class="navigation">
-            <li class="dropdown <?= $routeName === 'index' ? 'active' : ''?>">
-
-                <a href="/" class="dropdown-toggle" data-toggle="dropdown">Главная</a>
+	        <?php
+	        foreach ($menuArgs as $single){
+	        ?>
+			<li class="dropdown <?= route( $currentRouteName ) == $single['url'] ? 'active' : ''?>">
+				<a href="{{$single['url']}}" class="dropdown-toggle" data-toggle="dropdown">{{$single['title']}}</a>
+		        <?php
+		        if ( ! empty( $single['submenu'] ) && is_array( $single['submenu'] ) ) {?>
+				<ul class="navigation__dropdown">
+			        <?php
+			        foreach ( $single['submenu'] as $sub ) {
+			        ?>
+					<li><a href="{{$sub['url']}}">{{$sub['title']}}</a></li>
+			        <?php
+			        }
+			        ?>
+				</ul>
+		        <?php
+		        }
+		        ?>
             </li>
-            <li class="<?= $routeName === 'elements' ? 'active' : ''?>">
-                <a href="elements" class="dropdown-toggle" data-toggle="dropdown">Верстка</a>
-            </li>
-            <li class="<?= $routeName === 'about' ? 'active' : ''?>">
-                <a href="about" class="dropdown-toggle" data-toggle="dropdown">Обо мне</a>
-            </li>
-            <li class="<?= $routeName === 'contacts' ? 'active' : ''?>">
-                <a href="contacts" class="dropdown-toggle" data-toggle="dropdown">Обратная связь</a>
-            </li>
+	        <?php
+	        }
+	        ?>
         </ul>
     </div>
 </nav>
+<?php
+
+return ob_get_clean();
+}
+echo generateMenu( $menuArgs );
+?>
