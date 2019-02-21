@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Custom\Classes\Helper;
+use App\Custom\Classes\MainMenu;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,8 +14,8 @@ class AppServiceProvider extends ServiceProvider
 	 *
 	 * @return void
 	 */
-	public function boot() {
-		//
+	public function boot( MainMenu $mainMenu ) {
+		View::share( 'mainMenu', $mainMenu->generateMenu() );
 	}
 
 	/**

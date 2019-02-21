@@ -2,6 +2,7 @@
 
 namespace App\Custom\Classes;
 
+
 class Helper {
 
 	public function __construct() {
@@ -27,4 +28,6 @@ class Helper {
 
 		return $num . " " . $titles[ ( $num % 100 > 4 && $num % 100 < 20 ) ? 2 : $cases[ min( $num % 10, 5 ) ] ];
 	}
+
+
 }

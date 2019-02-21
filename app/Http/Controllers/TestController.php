@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\Classes\MainMenu;
 use Illuminate\Http\Request;
 
 
 class TestController extends Controller {
-
 
 
 	public function time(){
@@ -16,16 +16,19 @@ class TestController extends Controller {
 	public function about(){
 		return view('welcome');
 	}
+
 	public function data(){
 		$userData = [
 			'data' =>[
-				'name' => 'Test',
-				'surname'=>'Testov'
+				'name'    => 'Test',
+				'surname' =>'Testov'
 
 			]
 		];
+
 		return $userData;
 	}
+
 	public function put(){
 		return 'put here!';
 	}
@@ -35,14 +38,14 @@ class TestController extends Controller {
 	}
 
 	public function postingLoginData(Request $request) {
-		$login = $request->input('login');
+		$login    = $request->input('login');
 		$password = $request->input('password');
 
-		if($login === '111' && $password === '222') {
+		if( $login === '111' && $password === '222') {
 			return redirect()->route('mainPage');
 		}
 
-		return view('login',['errorMessage'=>'Неверный логин или пароль']);
+		return view('login',[ 'errorMessage' =>'Неверный логин или пароль']);
 
 	}
 
@@ -52,6 +55,14 @@ class TestController extends Controller {
 
 	public function testing(){
 		return view('layouts.main');
+	}
+
+	public function testMenu() {
+		$menu = new MainMenu();
+
+		return $menu->generateMenu();
+
+
 	}
 
 }
