@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Custom\Classes\MainMenu;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 
@@ -64,5 +65,37 @@ class TestController extends Controller {
 
 
 	}
+
+	public function orm() {
+
+//		$customer = new Customer();
+//		$customer->name = 'Test';
+//		$customer->surname = 'Testov';
+//		$customer->patronymic = 'Testovich';
+//		$customer->age = 45;
+//		$customer->birthdate = '1984-06-23';
+//		$customer->notes = 'Test note text';
+//		$customer->save();
+//
+//		$customer = Customer::find(1);
+//		debug($customer);
+//		var_dump($customer);
+//		$customer->age = 20;
+//		$customer->notes = 'We edited it ';
+//		$customer->save();
+//
+//
+//		$create = Customer::create([
+//			'name'=>'Test2',
+//			'surname'=>'Testov2',
+//			'age' => '30',
+//			'birthdate' => '1990-01-30',
+//			'notes'=> 'some Note'
+//		]);
+//		debug($create);
+		return 'ok';
+	}
+
+
 
 }

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 class MainMenu {
 
 	function generateMenu() {
+		return 2;
 		$menuArgs         = [
 			[
 				'title'   => 'Главная',
