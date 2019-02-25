@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Custom\Classes\MainMenu;
 use App\Models\Customer;
+use App\Models\Post;
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -94,6 +97,30 @@ class TestController extends Controller {
 //		]);
 //		debug($create);
 		return 'ok';
+	}
+
+	public function relations() {
+//		$userModel = User::find(1);
+		//debug($userMode);
+		//var_dump($userMode);
+//		$userProfile = $userModel->profile;
+//		dump($userModel, $userProfile);
+
+//		$user = Profile::where('name','Test')
+//			->first()
+//			->user;
+
+//		$post = new Post([
+//			'title' => 'Post4',
+//			'slug' => 'post4',
+//			'tagline' => 'some random'
+//		]);
+//
+//		$user = User::find(1);
+//		$user->posts()->save($post);
+
+		return 'ok';
+
 	}
 
 

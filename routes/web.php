@@ -40,6 +40,7 @@ Route::view( '/404', '404' )->name( '404' );
 
 Route::get( '/test/menu', 'TestController@testMenu' )->name( 'testMenu' );
 Route::get( '/orm', 'TestController@orm' )->name( 'orm' );
+Route::get( '/relations', 'TestController@relations' )->name( 'relations' );
 
 
 
