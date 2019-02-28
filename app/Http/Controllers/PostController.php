@@ -4,28 +4,94 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Requests\AddPost;
+use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 
-class PostController extends Controller  {
+class PostController extends Controller {
 
 	protected $folderPath = 'post.';
 
-	function getAll () {
-		return view($this->folderPath .'all');
+	function getAll() {
+		$posts = \App\Models\Post::all();
+
+		return view( $this->folderPath . 'all', [ 'posts' => $posts, ] );
 	}
 
-	function getSingle($id) {
-		return view($this->folderPath .'single' ,['postID' => $id]);
+	function getSingle( $slug ) {
+		$post = Post::where( 'slug', $slug )->first();
+		if ( empty( $post ) ) {
+			return view( 404 );
+		}
+		$tags = $post->tags;
+		if ( $tags->isEmpty() ) {
+			$tags = false;
+		}
+		$date = date( "d F Y", strtotime( $post->created_at ) );
+
+		return view( $this->folderPath . 'single', [ 'post' => $post, 'tags' => $tags, 'date' => $date ] );
 	}
 
-	function addNew () {
-		//получаем поля через $request->input, делаем проверки, пытаемся записать в базу, если ошибка - выводим ее
 
-		return view($this->folderPath .'new',['errorMessage'=>'Не все поля были заполнены корректно']);
+	public function addPostGet() {
+		return view( 'posts.addPostForm' );
 	}
-	function showAddForm () {
-		return view($this->folderPath .'new');
+
+	public function addPostPost( AddPost $request ) {
+
+		$title    = $request->input( 'title' );
+		$slug     = str_slug( $title, '_' );
+		$announce = $request->input( 'announce' );
+		$content  = $request->input( 'content' );
+		$img      = $request->input( 'img' );
+		//удаляем все пробелы
+		if ( ! empty( $request->input( 'tags' ) ) ) {
+			$tags = str_replace( ' ', '', $request->input( 'tags' ) );
+			$tags = explode( ',', $tags );
+			//собираем айдишники тагов в один массив
+			$tagsID = [];
+			foreach ( $tags as $tagName ) {
+				$findTag = Tag::where( 'name', $tagName )->first();
+				//Ищем таг по имени
+				if ( $findTag ) {
+					$tagsID[] = $findTag->id;
+				} else {
+					//если не нашли, создаем новый
+					$newTag = new Tag( [
+						'name' => $tagName,
+					] );
+					$newTag->save();
+					$tagsID[] = $newTag->id;
+				}
+			}
+
+		}
+
+
+		$post = new Post( [
+			'title'    => $title,
+			'slug'     => $slug,
+			'announce' => $announce,
+			'fulltext' => $content,
+			'image'    => $img,
+			'user_id'  => 1
+		] );
+		$post->save();
+
+		//задаем посту теги, если они есть
+		if ( ! empty( $request->input( 'tags' ) ) && ! empty( $tagsID ) ) {
+			$post->tags()->sync( $tagsID );
+		}
+
+
+		if ( $post ) {
+			return 'Пост был успешно добавлен';
+		} else {
+			return view( $this->folderPath . 'addPostForm', [ 'errorMessage' => 'Не удалось добавить пост' ] );
+		}
+
 	}
 
 }

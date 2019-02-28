@@ -3,17 +3,22 @@
 		[
 			'title'   => 'Главная',
 			'url'     => route( 'index' ),
+		],
+		[
+			'title'   => 'Статьи',
+			'url'     => route( 'allPosts' ),
 			'submenu' => [
 				[
-					'title' => 'Регистрация',
-					'url'   => route( 'getRegister' ),
+					'title' => 'Все статьи',
+					'url'   => route( 'allPosts' ),
 				],
 				[
-					'title' => 'Авторизация',
-					'url'   => route( 'getLogin' ),
+					'title' => 'Добавить новую',
+					'url'   => route( 'addPostGet' ),
 				],
 			]
 		],
+
 		[
 			'title' => 'Верстка',
 			'url'   => route( 'elements' ),
@@ -26,6 +31,25 @@
 			'title' => 'Обратная связь',
 			'url'   => route( 'contacts' )
 		],
+		[
+			'title' => 'Обратная связь',
+			'url'   => route( 'contacts' )
+		],
+		[
+			'title'   => 'Пользователь',
+			'url'     => '',
+			'submenu' => [
+				[
+					'title' => 'Регистрация',
+					'url'   => route( 'getRegister' ),
+				],
+				[
+					'title' => 'Авторизация',
+					'url'   => route( 'getLogin' ),
+				],
+			]
+		],
+
 
 	];
 	$currentRouteName = Route::currentRouteName();

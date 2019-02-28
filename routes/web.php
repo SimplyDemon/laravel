@@ -36,11 +36,15 @@ Route::group( [ 'prefix' => 'user' ], function () {
 	Route::post( 'login', 'UserController@authorization' )->name( 'postLogin' );
 } );
 
+Route::group( [ 'prefix' => 'post' ], function () {
+	Route::get( 'all', 'PostController@getAll' )->name( 'allPosts' );
+	Route::get( 'addPost', 'PostController@addPostGet' )->name( 'addPostGet' );
+	Route::post( 'addPost', 'PostController@addPostPost' )->name( 'addPostPost' );
+	Route::get( '{slug?}', 'PostController@getSingle' )->name( 'singlePost' );
+} );
+
 Route::view( '/404', '404' )->name( '404' );
 
 Route::get( '/test/menu', 'TestController@testMenu' )->name( 'testMenu' );
 Route::get( '/orm', 'TestController@orm' )->name( 'orm' );
 Route::get( '/relations', 'TestController@relations' )->name( 'relations' );
-
-
-
