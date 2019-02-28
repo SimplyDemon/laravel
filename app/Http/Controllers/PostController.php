@@ -15,7 +15,8 @@ class PostController extends Controller {
 	protected $folderPath = 'post.';
 
 	function getAll() {
-		$posts = \App\Models\Post::all();
+		$posts = \App\Models\Post::orderBy( 'created_at', 'desc' )->get();
+		debug( $posts );
 
 		return view( $this->folderPath . 'all', [ 'posts' => $posts, ] );
 	}
@@ -36,7 +37,7 @@ class PostController extends Controller {
 
 
 	public function addPostGet() {
-		return view( 'posts.addPostForm' );
+		return view( $this->folderPath . 'addPostForm' );
 	}
 
 	public function addPostPost( AddPost $request ) {

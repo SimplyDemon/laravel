@@ -45,7 +45,7 @@
                                     <h6>Тэги</h6>
                                     <hr>
                                     @foreach($tags as $tag)
-                                        <a href="#" class="tags__link">$tag->name</a>
+                                        <a href="#" class="tags__link">{{$tag->name}}</a>
                                     @endforeach
                                 </div>
                             </div>

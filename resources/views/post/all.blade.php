@@ -37,14 +37,14 @@
                 <div class="col-xs-10  col-xs-offset-1">
                     <div class="post-content--front-page">
                         <h2 class="front-page-title">
-                            <a href="single-post">{{$post->title}}</a>
+                            <a href="{{route( 'index' ) . '/post/' .$post->slug}}">{{$post->title}}</a>
                         </h2>
                         <h3>{{$post->tagling}}</h3>
                         <p>
                             {{$post->announce}}
                         </p>
                     </div>
-                    <a href="single-post">
+                    <a href="{{route( 'index' ) . '/post/' .$post->slug}}">
                         <div class="read-more">
                             Читать далее <span class="glyphicon glyphicon-chevron-right"></span>
                             {{--<div class="comment-icon-counter">--}}
