@@ -87,8 +87,13 @@ class PostController extends Controller {
 		}
 
 
+
 		if ( $post ) {
-			return 'Пост был успешно добавлен';
+			$postUrl    = route( 'index' ) . '/post/' . $post->slug;
+			$homeUrl    = route( 'index' );
+			$addPostUrl = route( 'addPostGet' );
+
+			return "<a href='$postUrl'>Пост</a> был успешно добавлен, можете перейти на <a href='$homeUrl'>главную страницу</a> или <a href='$addPostUrl'>добавить</a> еще один пост";
 		} else {
 			return view( $this->folderPath . 'addPostForm', [ 'errorMessage' => 'Не удалось добавить пост' ] );
 		}
