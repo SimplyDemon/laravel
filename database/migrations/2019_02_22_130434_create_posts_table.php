@@ -16,7 +16,7 @@ class CreatePostsTable extends Migration {
 			$table->integer( 'user_id' )->unsigned();
 			$table->foreign( 'user_id' )
 			      ->references( 'id' )
-			      ->on( 'laravel_users1' )
+			      ->on( 'laravel_users' )
 			      ->onDelete( 'cascade' )
 			      ->onUpdate( 'cascade' );
 			$table->string( 'image', 255 )->nullable();
